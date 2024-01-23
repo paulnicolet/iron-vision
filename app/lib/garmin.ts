@@ -1,7 +1,7 @@
 import { GarminConnect } from 'garmin-connect';
 import { IGarminTokens } from 'garmin-connect/dist/garmin/types';
 
-import { getAuthCookie, setAuthCookie } from './auth';
+import { deleteAuthCookie, getAuthCookie, setAuthCookie } from './auth';
 
 async function login(username: string, password: string): Promise<void> {
   const client = new GarminConnect({
@@ -10,6 +10,10 @@ async function login(username: string, password: string): Promise<void> {
   });
   await client.login();
   setAuthCookie(client.exportToken());
+}
+
+function logout(): void {
+  deleteAuthCookie();
 }
 
 function isLoggedIn(): boolean {
@@ -27,4 +31,4 @@ function getClient(): GarminConnect {
   return client;
 }
 
-export { getClient, isLoggedIn, login };
+export { getClient, isLoggedIn, login, logout };

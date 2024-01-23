@@ -31,4 +31,9 @@ function setAuthCookie(data: any) {
   });
 }
 
-export { getAuthCookie, setAuthCookie };
+function deleteAuthCookie() {
+  const cookieStore = cookies();
+  cookieStore.delete(COOKIE_NAME);
+}
+
+export { deleteAuthCookie, getAuthCookie, setAuthCookie };
