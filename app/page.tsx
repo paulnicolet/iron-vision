@@ -1,15 +1,13 @@
-import Link from 'next/link';
 import { redirect } from 'next/navigation';
 
-import { useGarminClient } from './hooks/useGarminClient';
+import { getClient, isLoggedIn } from './lib/garmin';
 
 export default async function Home() {
-  const { isLoggedIn, getClient } = useGarminClient();
   if (!isLoggedIn()) {
     return redirect('/login');
   }
 
-  const activities = await getClient()!.getActivities(0, 1);
+  const activities = await getClient().getActivities(0, 1);
 
   return (
     <main>

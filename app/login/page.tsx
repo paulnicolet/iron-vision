@@ -1,9 +1,7 @@
-import { useGarminClient } from '../hooks/useGarminClient';
+import { isLoggedIn } from '../lib/garmin';
 import { authenticate } from './action';
 
 export default function Login() {
-  const { isLoggedIn, login, getClient } = useGarminClient();
-
   return (
     <main>
       <h3>Is logged in: {isLoggedIn() ? 'Yes' : 'No'}</h3>

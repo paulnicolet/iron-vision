@@ -2,12 +2,9 @@
 
 import { redirect } from 'next/navigation';
 
-import { useGarminClient } from '../hooks/useGarminClient';
+import { login } from '../lib/garmin';
 
 export async function authenticate(formData: FormData) {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const { login } = useGarminClient();
-
   const email = formData.get('email');
   const password = formData.get('password');
   if (!email || !password) {
