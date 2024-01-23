@@ -1,6 +1,7 @@
 import { redirect } from 'next/navigation';
 
 import { unauthenticate } from './action';
+import HeartRateEvolutionChart from './components/HeartRateEvolutionChart';
 import { getClient, isLoggedIn } from './lib/garmin';
 
 export default async function Home() {
@@ -8,7 +9,7 @@ export default async function Home() {
     return redirect('/login');
   }
 
-  const activities = await getClient().getActivities(0, 1);
+  const activities = await getClient().getActivities(0, 1000);
 
   return (
     <main>
@@ -16,7 +17,7 @@ export default async function Home() {
       <form action={unauthenticate}>
         <button type="submit">Logout</button>
       </form>
-      <span>Your last activity: {activities[0].activityName} </span>
+      <HeartRateEvolutionChart activities={activities} />
     </main>
   );
 }
