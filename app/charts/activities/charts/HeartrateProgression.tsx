@@ -2,17 +2,14 @@
 import 'chartjs-adapter-date-fns';
 
 import { Chart } from 'chart.js/auto';
-import { IActivity } from 'garmin-connect/dist/garmin/types';
 import { groupBy, range } from 'lodash';
 import { useEffect } from 'react';
 
-interface HeartRateEvolutionChartProps {
-  activities: IActivity[];
-}
+import ActivitiesChartProps from './props';
 
-export default function HeartRateEvolutionChart({
+export default function HeartrateProgression({
   activities,
-}: HeartRateEvolutionChartProps) {
+}: ActivitiesChartProps) {
   const data = activities
     .filter((activity) => activity.activityType.typeKey === 'running')
     .map((activity) => {

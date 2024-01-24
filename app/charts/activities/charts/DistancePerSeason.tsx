@@ -6,9 +6,7 @@ import { parseISO } from 'date-fns';
 import { IActivity } from 'garmin-connect/dist/garmin/types';
 import { useEffect } from 'react';
 
-interface HeartRateEvolutionChartProps {
-  activities: IActivity[];
-}
+import ActivitiesChartProps from './props';
 
 function computeSeason(activity: IActivity): string {
   const date = parseISO(activity.startTimeLocal);
@@ -21,9 +19,9 @@ function computeSeason(activity: IActivity): string {
   return year.toString();
 }
 
-export default function DistancePerSportChart({
+export default function DistancePerSeason({
   activities,
-}: HeartRateEvolutionChartProps) {
+}: ActivitiesChartProps) {
   const data = activities
     .filter((activity) => activity.distance)
     .map((activity) => {
