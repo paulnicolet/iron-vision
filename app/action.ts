@@ -4,7 +4,7 @@ import { redirect } from 'next/navigation';
 
 import { logout } from './lib/garmin';
 
-export async function unauthenticate(formData: FormData) {
+export async function unauthenticate(_: FormData) {
   logout();
   redirect('/');
 }

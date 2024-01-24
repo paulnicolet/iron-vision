@@ -2,10 +2,9 @@
 import 'chartjs-adapter-date-fns';
 
 import { Chart } from 'chart.js/auto';
-import { format, parseISO } from 'date-fns';
+import { parseISO } from 'date-fns';
 import { IActivity } from 'garmin-connect/dist/garmin/types';
-import { groupBy, range, reduce } from 'lodash';
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 
 interface HeartRateEvolutionChartProps {
   activities: IActivity[];

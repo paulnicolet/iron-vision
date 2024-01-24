@@ -1,5 +1,4 @@
 import {
-  CipherGCM,
   createCipheriv,
   createDecipheriv,
   createHash,
