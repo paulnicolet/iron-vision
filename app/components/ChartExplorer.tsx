@@ -43,6 +43,15 @@ export default function ChartExplorer() {
       <Command.Input autoFocus placeholder="Go to chart" />
       <Command.List>
         <Command.Empty>No results found.</Command.Empty>
+        <Command.Item
+          key="home"
+          onSelect={(_) => {
+            setIsOpen(false);
+            router.replace('/');
+          }}
+        >
+          Home
+        </Command.Item>
         {items}
       </Command.List>
     </Command.Dialog>
