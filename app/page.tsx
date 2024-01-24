@@ -10,7 +10,7 @@ export default async function Home() {
 
   return (
     <main>
-      <h1>Hello</h1>
+      <h1>Hello, press ⌘K</h1>
       <form action={unauthenticate}>
         <button type="submit">Logout</button>
       </form>

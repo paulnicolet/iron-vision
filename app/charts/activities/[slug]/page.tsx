@@ -2,13 +2,7 @@ import React from 'react';
 
 import { getClient } from '@/app/lib/garmin';
 
-import DistancePerSeason from '../charts/DistancePerSeason';
-import HeartrateProgression from '../charts/HeartrateProgression';
-
-const CHARTS = {
-  'distance-per-season': DistancePerSeason,
-  'heartrate-progression': HeartrateProgression,
-};
+import CHARTS from '../charts';
 
 export const dynamicParams = false;
 
