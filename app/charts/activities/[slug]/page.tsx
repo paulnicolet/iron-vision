@@ -7,7 +7,7 @@ import CHARTS from '../charts';
 export const dynamicParams = false;
 
 export async function generateStaticParams() {
-  return Object.keys(CHARTS);
+  return Object.keys(CHARTS).map((slug) => ({ slug }));
 }
 
 export default async function Page({ params }: { params: { slug: string } }) {
