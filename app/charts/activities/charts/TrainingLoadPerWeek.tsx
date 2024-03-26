@@ -2,7 +2,16 @@
 import 'chartjs-adapter-date-fns';
 
 import { Chart } from 'chart.js/auto';
-import { getUnixTime, getWeek, getYear, parseISO, sub } from 'date-fns';
+import {
+  differenceInDays,
+  formatDuration,
+  getUnixTime,
+  getWeek,
+  getYear,
+  intervalToDuration,
+  parseISO,
+  sub,
+} from 'date-fns';
 import { IActivity } from 'garmin-connect/dist/garmin/types';
 import { useEffect } from 'react';
 
@@ -19,11 +28,15 @@ function formatWeek(date: Date): string {
   return `${year}-${week}`;
 }
 
-function generateAllWeeks(activities: IActivity[]): string[] {
-  const firstActivityDate = parseISO(
+function getFirstActivityDate(activities: IActivity[]): Date {
+  return parseISO(
     activities.toSorted((activity) => -getUnixTime(activity.startTimeLocal))[0]
       .startTimeLocal
   );
+}
+
+function generateAllWeeks(activities: IActivity[]): string[] {
+  const firstActivityDate = getFirstActivityDate(activities);
 
   var currentDate = new Date();
   var weeks: string[] = [];
@@ -50,9 +63,26 @@ export default function TrainingLoadPerWeek({
     };
   });
 
-  const labels = generateAllWeeks(activities);
+  const totalSeconds = data
+    .map((point) => point.duration)
+    .reduce((total, point) => total + point);
 
-  console.log(labels.findIndex((label) => label == '2023-1'));
+  const totalDuration = intervalToDuration({
+    start: sub(new Date(), { seconds: totalSeconds }),
+    end: new Date(),
+  });
+
+  const totalDurationDays = differenceInDays(
+    new Date(),
+    sub(new Date(), { seconds: totalSeconds })
+  );
+
+  const totalWindowDays = differenceInDays(
+    new Date(),
+    getFirstActivityDate(activities)
+  );
+
+  const labels = generateAllWeeks(activities);
 
   const grouped = data.reduce((result, item) => {
     let type: { string: any } = (result[item.type as keyof typeof result] =
@@ -117,6 +147,13 @@ export default function TrainingLoadPerWeek({
   return (
     <div>
       <h2>Weekly training load</h2>
+      <h3>
+        Total: {formatDuration(totalDuration)} (over {totalWindowDays} days)
+      </h3>
+      <h4>
+        You spent {((totalDurationDays / totalWindowDays) * 100).toFixed(2)}% of
+        your life doing sport
+      </h4>
       <canvas id="chart2" />
     </div>
   );
