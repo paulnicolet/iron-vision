@@ -54,22 +54,31 @@ export default function ChartExplorer() {
   });
 
   return (
-    <Command.Dialog ref={ref} open={isOpen} onOpenChange={setIsOpen}>
-      <Command.Input autoFocus placeholder="Go to chart" />
-      <Command.List>
-        <Command.Empty>No results found.</Command.Empty>
-        <Command.Item
-          key="home"
-          onSelect={(_) => {
-            setIsOpen(false);
-            router.replace('/');
-          }}
-        >
-          Home
-        </Command.Item>
-        {activityItems}
-        {performanceItems}
-      </Command.List>
-    </Command.Dialog>
+    <div>
+      <button
+        onClick={() => {
+          setIsOpen(!isOpen);
+        }}
+      >
+        Menu
+      </button>
+      <Command.Dialog ref={ref} open={isOpen} onOpenChange={setIsOpen}>
+        <Command.Input autoFocus placeholder="Go to chart" />
+        <Command.List>
+          <Command.Empty>No results found.</Command.Empty>
+          <Command.Item
+            key="home"
+            onSelect={(_) => {
+              setIsOpen(false);
+              router.replace('/');
+            }}
+          >
+            Home
+          </Command.Item>
+          {activityItems}
+          {performanceItems}
+        </Command.List>
+      </Command.Dialog>
+    </div>
   );
 }
