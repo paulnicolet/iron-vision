@@ -5,7 +5,8 @@ import { Command } from 'cmdk';
 import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 
-import CHARTS from '@/app/charts/activities/charts';
+import ACTIVITIES_CHARTS from '@/app/charts/activities/charts';
+import PERFORMANCE_CHARTS from '@/app/charts/performance/charts';
 
 export default function ChartExplorer() {
   const ref = useRef<HTMLDivElement | null>(null);
@@ -24,13 +25,27 @@ export default function ChartExplorer() {
     return () => document.removeEventListener('keydown', down);
   }, []);
 
-  const items = Object.keys(CHARTS).map((slug) => {
+  const activityItems = Object.keys(ACTIVITIES_CHARTS).map((slug) => {
     return (
       <Command.Item
         key={slug}
         onSelect={(_) => {
           setIsOpen(false);
           router.push(`/charts/activities/${slug}`);
+        }}
+      >
+        {slug}
+      </Command.Item>
+    );
+  });
+
+  const performanceItems = Object.keys(PERFORMANCE_CHARTS).map((slug) => {
+    return (
+      <Command.Item
+        key={slug}
+        onSelect={(_) => {
+          setIsOpen(false);
+          router.push(`/charts/performance/${slug}`);
         }}
       >
         {slug}
@@ -52,7 +67,8 @@ export default function ChartExplorer() {
         >
           Home
         </Command.Item>
-        {items}
+        {activityItems}
+        {performanceItems}
       </Command.List>
     </Command.Dialog>
   );
