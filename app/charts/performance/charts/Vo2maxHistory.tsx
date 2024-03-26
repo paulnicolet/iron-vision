@@ -16,6 +16,10 @@ export default function Vo2maxHistory({
     };
   });
 
+  const values = data.map((point) => point.value).toSorted();
+  const min = values[0];
+  const max = values[values.length - 1];
+
   useEffect(() => {
     const chart = new Chart('chart2', {
       type: 'line',
@@ -39,6 +43,8 @@ export default function Vo2maxHistory({
               display: true,
               text: 'Vo2max',
             },
+            min: min - 5,
+            max: max + 5,
           },
         },
       },
