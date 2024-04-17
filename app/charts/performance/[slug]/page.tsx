@@ -12,8 +12,12 @@ export async function generateStaticParams() {
 
 export default async function Page({ params }: { params: { slug: string } }) {
   const Chart = CHARTS[params.slug as keyof typeof CHARTS];
+
+  const currentDate = new Date();
+  const formattedDate = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, '0')}-${String(currentDate.getDate()).padStart(2, '0')}`;
+
   const vo2maxHistory = (await getClient().get(
-    'https://connectapi.garmin.com/metrics-service/metrics/maxmet/monthly/2022-04-01/2024-03-31'
+    `https://connectapi.garmin.com/metrics-service/metrics/maxmet/monthly/2022-04-01/${formattedDate}`
   )) as any[];
 
   return (
