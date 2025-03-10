@@ -11,7 +11,7 @@ export default function Vo2maxHistory({
 }: PerformanceChartProps) {
   const genericData = vo2maxHistory.map((point) => {
     return {
-      date: point.generic.calendarDate,
+      date: Date.parse(point.generic.calendarDate),
       value: point.generic.vo2MaxPreciseValue,
     };
   });
@@ -20,7 +20,7 @@ export default function Vo2maxHistory({
     .filter((point) => point.cycling !== null)
     .map((point) => {
       return {
-        date: point.cycling.calendarDate,
+        date: Date.parse(point.cycling.calendarDate),
         value: point.cycling.vo2MaxPreciseValue,
       };
     });
