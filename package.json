@@ -15,7 +15,7 @@
     "chart.js": "^4.4.1",
     "chartjs-adapter-date-fns": "^3.0.0",
     "cmdk": "^0.2.0",
-    "date-fns": "^3.3.1",
+    "date-fns": "^4.1.0",
     "garmin-connect": "^1.6.2",
     "lodash": "^4.17.21",
     "next": "14.1.0",

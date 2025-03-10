@@ -51,6 +51,13 @@ export default function Vo2maxHistory({
               display: true,
               text: 'Date',
             },
+            type: 'time',
+            time: {
+              unit: 'day',
+              displayFormats: {
+                day: 'dd/MM/yyy',
+              },
+            },
           },
           y: {
             title: {
