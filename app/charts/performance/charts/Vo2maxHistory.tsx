@@ -16,12 +16,14 @@ export default function Vo2maxHistory({
     };
   });
 
-  const cyclingData = vo2maxHistory.map((point) => {
-    return {
-      date: point.cycling.calendarDate,
-      value: point.cycling.vo2MaxPreciseValue,
-    };
-  });
+  const cyclingData = vo2maxHistory
+    .filter((point) => point.cycling !== null)
+    .map((point) => {
+      return {
+        date: point.cycling.calendarDate,
+        value: point.cycling.vo2MaxPreciseValue,
+      };
+    });
 
   const values = [...genericData, ...cyclingData]
     .map((point) => point.value)
