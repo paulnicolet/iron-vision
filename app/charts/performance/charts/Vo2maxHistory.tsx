@@ -9,14 +9,23 @@ import PerformanceChartProps from './props';
 export default function Vo2maxHistory({
   vo2maxHistory,
 }: PerformanceChartProps) {
-  const data = vo2maxHistory.map((point) => {
+  const genericData = vo2maxHistory.map((point) => {
     return {
       date: point.generic.calendarDate,
       value: point.generic.vo2MaxPreciseValue,
     };
   });
 
-  const values = data.map((point) => point.value).toSorted();
+  const cyclingData = vo2maxHistory.map((point) => {
+    return {
+      date: point.cycling.calendarDate,
+      value: point.cycling.vo2MaxPreciseValue,
+    };
+  });
+
+  const values = [...genericData, ...cyclingData]
+    .map((point) => point.value)
+    .toSorted();
   const min = values[0];
   const max = values[values.length - 1];
 
@@ -24,7 +33,10 @@ export default function Vo2maxHistory({
     const chart = new Chart('chart2', {
       type: 'line',
       data: {
-        datasets: [{ data: data, label: 'vo2max' }],
+        datasets: [
+          { data: genericData, label: 'generic vo2max' },
+          { data: cyclingData, label: 'cycling vo2max' },
+        ],
       },
       options: {
         parsing: {
